@@ -42,11 +42,9 @@
 // }
 
 // example if condition
+// function clickHandler() {
 
-
-function clickHandler() {
-
-    var item = document.getElementById("item").value
+    //var item = document.getElementById("item").value
     //var ele = document.getElementsByName("gender")
     //var gender = ""
 
@@ -122,20 +120,161 @@ function clickHandler() {
     // }
 
     
-    switch(item){
+    // switch(item){
 
         
-            case "B":
-                alert("Burgar would cost you Rs. 200")
-            break;
+    //         case "B":
+    //             alert("Burgar would cost you Rs. 200")
+    //         break;
     
-            case "P":    
-            alert("Pizza would cost you Rs. 450")
-            break;
+    //         case "P":    
+    //         alert("Pizza would cost you Rs. 450")
+    //         break;
     
-            default:
-                alert("Sorry, You didn't place any order.")
+    //         default:
+    //             alert("Sorry, You didn't place any order.")
     
-        }
+    //     }
+
+
+
+
+
+/// "this" with bind
+// var obj = {
+  
+//     name: "Chris",
+//     friends: ["matt", "james"],
+//     loop : function (){
+    
+//     this.friends.forEach(function(friend){
+    
+//     console.log(this.name + " knows "+ friend);
+//   }.bind(this));
+//   }
+//   };
+//   obj.loop();
+
+// function inside method shadow "this"
+// var obj = {
+  
+//     name: "Chris",
+//     friends: ["matt", "james"],
+//     loop : function (){
+    
+//     this.friends.forEach(
+      
+//       function(friend){
+    
+//     console.log(this.name + " knows "+ friend);
+//   }
+//   );
+//   }
+//       };
+//   obj.loop();
+
+
+
+// function fun(){
+  
+//   return this;
+// }
+
+
+// *******instuctor experience
+
+// fun()=== global;
+// // typeof fun.call(2)=== "object";
+// // fun.apply(null)=== global;
+// // fun.call(undefined) === global;
+// // typeof fun.bind(true)()==="object";
+
+// let employee = {
+  
+//     name: "Ramesh",
+//     role: "instuctor",
+//     fun: function(){
+    
+//     console.log(this.name+" is an "+ this.role)
+//   }
+//   };
+  
+//   function detail(exp){
+//     console.log(this.name+" is an "+ this.role+" has a "+exp+"+ years of experience");
+//   }
+  
+//   detail.call(employee, 10);
+//   //detail.apply(employee, [8,9,10]);
+  
+//   let empDetails = detail.bind(employee);
+  
+//   empDetails();
+
+
+
+
+
+// Loops
+
+//for loop
+
+// for(var i=1; i<=10; i++){
+//     console.log("Vivek Sharma", i)
+// }
+
+
+
+// for(var i=10; i>=1; i--){
+//     console.log("Vivek Sharma", i)
+// }
+
+
+// table 
+
+//  var table = 10;
+//  var tableTill = 100;
+
+// for(var i=1; i<=tableTill; i++){
+//     console.log(table + ' X ' + i + ' = ' + table*i)
+// } 
+
+// for(var i=2; i<=tableTill; i=i+2){
+//      console.log(table + ' X ' + i + ' = ' + table*i)
+//  }
+
+
+// nested for loop
+
+// for(var i=1; i<=5; i++){
+//     for(var j=1;j<=5;j++){
+//         console.log(i, j)
+//     }
+// }
+
+// var i=1
+// while(i<=10){
+//     console.log(i)
+//     i++
+// }
+
+// do{
+//     console.log(i)
+//     i++
+// }while(i<=10)
+
+
+ //var table = 10;
+ var tableTill = 100;
+
+// for(var i=1; i<=tableTill; i++){
+//     console.log(table + ' X ' + i + ' = ' + table*i)
+// } 
+
+function enterTable(){
+    var table = document.getElementById("table").value
+
+for(var i=2; i<=tableTill; i=i+2){
+     console.log(table + ' X ' + i + ' = ' + table*i)
+ }
 
 }
