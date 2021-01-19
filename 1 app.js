@@ -12,7 +12,6 @@
 // console.log("Age:"+ " " + persons.age);
 // console.log("Gender:"+ " " + persons.gender);
 // console.log("Weight:"+ " " + persons.weight);
-// //console.log(https://wassets.hscicdn.com/_next/static/runtime/polyfills-155ba294c5973be655ed.js)
 
 // Arithmetic Operators
 

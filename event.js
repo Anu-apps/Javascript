@@ -1,3 +1,6 @@
+// using events API made on https://mockapi.io/projects (anuvats1988 gmail login)
+
+
 var getEvents = document.getElementById("getEvents")
 var eventResults = document.getElementById("eventResults")
 

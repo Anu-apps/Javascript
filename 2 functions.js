@@ -1,11 +1,11 @@
 
 // function defination
 function printMyName(){
-    console.log("Ramesh Mahajan")
+    console.log("vivek sharma")
 }
 
 
-// function with paramtersn
+// function with paramters
 function printMyDynamicName(name)
 {
     console.log(name)
@@ -35,12 +35,12 @@ function average(a, b, c){
 
 // var person = {
 //     id: 1,
-//     name: "ramesh"
+//     name: "vivek"
 // }
 
 // printMyDynamicName(person)
 
-// capitalCase("ramesh")
+// capitalCase("vivek")
 
 // var avg = average(10,20,30)
 // var avg1  = average(33,32,55)

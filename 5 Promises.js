@@ -115,7 +115,7 @@ const promiseInFunc2 = function(data){
     })
 }
 
-// Promises in serail wise
+// Promises in serial wise
 promiseInFunc("xyz")
 .then(function(res){
     
