@@ -5,7 +5,7 @@ var state = document.getElementById("state")
 var email = document.getElementById("email")
 var password = document.getElementById("password")
 var registrationForm = document.getElementById("registrationForm")
-
+var result = document.getElementById("result")
 
 registrationForm.addEventListener('submit', function(e){
     // To stop refresh the form
@@ -19,10 +19,14 @@ registrationForm.addEventListener('submit', function(e){
 function dynamicValidations(){
 
     // remove previous errors
-    let allPreviousErrors = document.getElementsByClassName("alert-danger")
-    for(let i=0; i<allPreviousErrors.length; i++){
+    let allPreviousErrors = document.querySelectorAll(".alert-danger")
+
+    for(let i=0; i<allPreviousErrors.length; i++){    
         allPreviousErrors[i].remove()
     }
+
+
+    let errors = false
 
 
 
@@ -33,72 +37,148 @@ function dynamicValidations(){
         errorElement.innerHTML = "First Name is Required"
         errorElement.className = "alert alert-danger"
 
+
+
         firstName.parentElement.appendChild(errorElement)
         
-
+        errors = true
 
         // firstName.parentElement.children[2].innerHTML = "First Name is Required."
         // firstName.parentElement.children[2].style.display = "block"
 
     }
     
-    // if(lastName.value === ""){
+    if(lastName.value === ""){
 
-        let errorElement2 = document.createElement("DIV")
-        errorElement2.innerHTML = "Last Name is Required"
-        errorElement2.className = "alert alert-danger"
+        let errorElement = document.createElement("DIV")
+        errorElement.innerHTML = "Last Name is Required"
+        errorElement.className = "alert alert-danger"
 
-        lastName.parentElement.appendChild(errorElement2)
+        lastName.parentElement.appendChild(errorElement)
         
+        errors = true
         
     //     lastName.parentElement.children[2].innerHTML = "Last Name is Required."
     //     lastName.parentElement.children[2].style.display = "block"
-    // }
+    }
     
    
-    // if(state.value === ""){
-        let errorElement3 = document.createElement("DIV")
-        errorElement3.innerHTML = "State is Required"
-        errorElement3.className = "alert alert-danger"
+    if(state.value === ""){
+        let errorElement = document.createElement("DIV")
+        errorElement.innerHTML = "State is Required"
+        errorElement.className = "alert alert-danger"
 
-        state.parentElement.appendChild(errorElement3)
+        state.parentElement.appendChild(errorElement)
         
+        errors = true
+
     //     state.parentElement.children[2].innerHTML = "State is Required."
     //     state.parentElement.children[2].style.display = "block"
-    // }
+    }
 
-    // if(city.value === ""){
+    if(city.value === ""){
         let errorElement4 = document.createElement("DIV")
         errorElement4.innerHTML = "City is Required"
         errorElement4.className = "alert alert-danger"
 
         city.parentElement.appendChild(errorElement4)
         
+        errors = true
     //     city.parentElement.children[2].innerHTML = "City is Required."
     //     city.parentElement.children[2].style.display = "block"
-    // }
+    }
 
-    // if(email.value === ""){
+    if(email.value === ""){
         let errorElement5 = document.createElement("DIV")
         errorElement5.innerHTML = "Email is Required"
         errorElement5.className = "alert alert-danger"
 
         email.parentElement.appendChild(errorElement5)
         
+        errors = true
     //     email.parentElement.children[2].innerHTML = "Email is Required."
     //     email.parentElement.children[2].style.display = "block"
-    // }
+    }
 
-    // if(password.value === ""){
+    if(password.value === ""){
         let errorElement6 = document.createElement("DIV")
         errorElement6.innerHTML = "Password is Required"
         errorElement6.className = "alert alert-danger"
 
         password.parentElement.appendChild(errorElement6)
         
+        errors = true
     //     password.parentElement.children[2].innerHTML = "Password is Required."
     //     password.parentElement.children[2].style.display = "block"
-    // }
+    }
+
+
+    if(!errors){
+        
+
+        let data = `
+        
+        <h1>Results</h1>
+
+        <div class="row">
+            <div class="col-12">
+                <strong>First Name</strong>
+            </div>
+            <div class="col-12">
+                ${firstName.value}
+            </div>    
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <strong>Last Name</strong>
+            </div>
+            <div class="col-12">
+                ${lastName.value}
+            </div>    
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <strong>State</strong>
+            </div>
+            <div class="col-12">
+                ${state.value}
+            </div>    
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <strong>City</strong>
+            </div>
+            <div class="col-12">
+                ${city.value}
+            </div>    
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <strong>Email Address</strong>
+            </div>
+            <div class="col-12">
+                ${email.value}
+            </div>    
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <strong>Password</strong>
+            </div>
+            <div class="col-12">
+                ${password.value}
+            </div>    
+        </div>
+        `
+
+        result.innerHTML = data
+
+    }
+
 }
 
 function simpleValidations(){
