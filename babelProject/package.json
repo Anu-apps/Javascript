@@ -11,6 +11,7 @@
   "author": "Vivek",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.21.1",
     "html-webpack-plugin": "^4.5.1",
     "webpack": "^5.16.0",
     "webpack-cli": "^4.4.0"

@@ -1,9 +1,9 @@
 class Student
 {
 
-    constructor(){
+    constructor(students){
         
-        this.students = []
+        this.students = [...students]
         
     }
 
@@ -20,9 +20,7 @@ class Student
 
     getStudentById(id)
     {
-        let filterStudent = this.students.filter((student)=>{
-           return student.id === id
-        })
+        let filterStudent = this.students.filter(student=> student.id === id)
 
         if(filterStudent.length>0){
             return filterStudent[0]

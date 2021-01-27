@@ -1,99 +1,57 @@
-// import Student class
+import Product from './components/Product'
 
-import Student from './components/Student'
+let product = new Product()
 
-let student = new Student()
+showProducts()
 
-
-// const student1 = new Student()
-
-// student1.addStudent({
-//     id: 1,
-//     name: "vivek",
-//     rollNumber: 1
-// })
-
-// student1.addStudent({
-//     id: 2,
-//     name: "aala",
-//     rollNumber: 2
-// })
-
-// student1.addStudent({
-//     id: 3,
-//     name: "remi",
-//     rollNumber: 3
-// })
-
-// console.log(student1.getStudents())
-
-// console.log(student1.getStudentById(2))
-
-// student1.deleteStudentById(2)
-
-// console.log(student1.getStudents())
-
-
-var registrationForm = document.getElementById("registrationForm")
-
-registrationForm.addEventListener("submit", function(e){
-
+document.getElementById("productForm").addEventListener("submit", async function (e) {
     e.preventDefault()
 
-    let firstName = document.getElementById("firstName")
-    let lastName = document.getElementById("lastName")
-    let classID = document.getElementById("classID")
-    let rollno = document.getElementById("rollno")
-
-    let errors = false
+    let name = document.getElementById("name")
+    let description = document.getElementById("description")
+    let image = document.getElementById("image")
+    let price = document.getElementById("price")
 
 
-    if(firstName.value === ""){
-
-        let errorElement = document.createElement("DIV")
-        errorElement.innerHTML = "First Name is Required"
-        errorElement.className = "alert alert-danger"
-
-
-
-        firstName.parentElement.appendChild(errorElement)
-        
-        errors = true
-
-    }
-
-    if(!errors){
-
-    student.addStudent({
-        id: +(student.getStudents().length)+1,
-        firstName:firstName.value,
-        lastName:lastName.value,
-        class: classID.value,
-        rollno: rollno.value
+    await product.addProduct({
+        name: name.value,
+        description: description.value,
+        image: image.value,
+        price: price.value
     })
 
-    showStudents()
-}
+    name.value = ""
+    description.value = ""
+    image.value = ""
+    price.value = ""
+
+    showProducts()
+
 })
 
 
-function showStudents(){
-    if(!errors){
-    let students = student.getStudents()
+async function showProducts() {
+    let results = document.getElementById("results")
+
+    let products = await product.getAllProducts()
+
     let data = ''
-    let resultTable = document.getElementById("resultTable")
-    students.forEach((item)=>{
-        data += `<tr>
-            <td>${item.id}</td>
-            <td>${item.firstName}</td>
-            <td>${item.lastName}</td>
-            <td>${item.class}</td>
-            <td>${item.rollno}</td>
-        </tr>    
-        `
-    })
 
-    resultTable.innerHTML = data
-}
-}
+    products && products.data.forEach(product => {
 
+        data += `
+    <div class="card col-3">
+  <img class="card-img-top" src="${product.image}" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">${product.name}</h5>
+    <p class="card-text">${product.description}</p>
+    <a href="#" class="btn btn-primary">${product.price}</a>
+  </div>
+</div>
+`
+
+    });
+
+
+    results.innerHTML = data
+}
