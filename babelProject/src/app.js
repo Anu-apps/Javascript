@@ -1,6 +1,11 @@
-import Product from './components/Product'
+import ProductInventory from './components/ProductInventory'
 
-let product = new Product()
+import users from './json/users.json'
+
+console.log(users)
+
+let product = new ProductInventory()
+
 
 showProducts()
 
@@ -37,21 +42,35 @@ async function showProducts() {
 
     let data = ''
 
-    products && products.data.forEach(product => {
+    products && products.data.forEach(item => {
 
         data += `
-    <div class="card col-3">
-  <img class="card-img-top" src="${product.image}" alt="Card image cap">
+    <div id="card_${item.id}" class="card col-3">
+  <img class="card-img-top" src="${item.image}" alt="Card image cap">
   <div class="card-body">
-    <h5 class="card-title">${product.name}</h5>
-    <p class="card-text">${product.description}</p>
-    <a href="#" class="btn btn-primary">${product.price}</a>
+    <h5 class="card-title">${item.name}</h5>
+    <p class="card-text">${item.description}</p>
+    <a href="#" class="btn btn-primary">$${item.price}</a>
+    <hr>
+    <button data-id="${item.id}" type="button" class="delete-product btn btn-primary">Delete</button>
   </div>
 </div>
-`
+`   
 
     });
 
-
+    
     results.innerHTML = data
+
+    let allBtns = results.getElementsByClassName('delete-product')
+
+    for(let btn of allBtns){
+        btn.addEventListener('click', function(){
+           let id= btn.getAttribute('data-id')
+            product.deleteProduct(id)
+            document.getElementById("card_"+id).remove()
+        })
+    }
+
+
 }

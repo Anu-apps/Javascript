@@ -1,28 +1,37 @@
 import axios from 'axios'
 
-class Product{
+class Product {
 
-    constructor(){
+    constructor() {
         this.products = []
 
         this.getAllProducts()
-        .then((res)=>{
-            this.products = res.data
-        })
+            .then((res) => {
+                this.products = res.data
+            })
     }
 
 
-    addProduct(product){
+    addProduct(product) {
 
         // api call to add product
         return axios.post("https://5fffdd12cb21e10017af8153.mockapi.io/products/", product)
 
     }
 
-    getAllProducts(){
+    getAllProducts() {
 
         return axios.get("https://5fffdd12cb21e10017af8153.mockapi.io/products/")
-    
+
+    }
+
+    deleteProduct(id) {
+
+        var confirmAction = confirm("Are you sure to delete?");
+        if (confirmAction == true) {
+            return axios.delete("https://5fffdd12cb21e10017af8153.mockapi.io/products/"+id)
+        }
+
     }
 
 }
