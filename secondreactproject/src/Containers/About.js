@@ -1,6 +1,8 @@
 import Sidebar from "../Components/Sidebar"
 import Footer from "../Components/Footer"
 import Header from "../Components/Header"
+import Titlebar from "../Components/Titlebar";
+
 
 import slider1 from '../assets/images/slider1.jpg'
 import slider2 from '../assets/images/slider2.jpg'
@@ -17,6 +19,7 @@ function About() {
     return (
         <>
             <Header />
+            <Titlebar title="About Us"/>
 
             <div class="container">
                 <div class="row">

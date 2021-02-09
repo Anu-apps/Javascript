@@ -5,8 +5,8 @@ function Footer(){
         <footer>
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-6">Copyright &copy;</div>
-                    <div class="col-6 text-end">
+                    <div class="col-6">Copyright &copy; 2021</div>
+                    <div class="col-6 text-end footer-link">
                         <a href="#">Home</a>
                         <a href="#">About us</a>
                         <a href="#">Services</a>
