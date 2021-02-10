@@ -4,12 +4,17 @@ import Home from '../Containers/Home'
 import About from '../Containers/About'
 import Services from '../Containers/Services'
 import Contact from '../Containers/Contact'
+import Login from '../Containers/Login'
+import Register from '../Containers/Register'
+
 
 function Routes(){
 
     return (
         <Router>
             <Switch>
+                <Route path="/register" component={Register}/>
+                <Route path="/login" component={Login}/>
                 <Route path="/contact-us" component={Contact}/>
                 <Route path="/services" component={Services}/>
                 <Route path="/about-us" component={About}/>
