@@ -22,9 +22,29 @@ class Contact extends React.Component {
             email: "",
             phone: "",
             query: "",
-            successMessage: false
+            successMessage: false,
+            isUserLoggedIn: false
         }
     }
+
+    componentDidMount = async () => {
+
+        let user = await sessionStorage.getItem('user')
+
+        if (user) {
+            this.setState({ isUserLoggedIn: true })
+
+        } else {
+            this.setState({ isUserLoggedIn: false })
+        }
+    }
+
+    logOut = (e) => {
+        e.preventDefault()
+        sessionStorage.removeItem('user')
+        this.setState({ isUserLoggedIn: false })
+    }
+
 
     handleSubmit = (e) => {
         e.preventDefault()
@@ -43,7 +63,7 @@ class Contact extends React.Component {
 
 
                 setTimeout(() => {
-                    this.setState({successMessage: false})
+                    this.setState({ successMessage: false })
                 }, 3000);
 
             }, (error) => {
@@ -93,8 +113,8 @@ class Contact extends React.Component {
     render() {
         return (
             <>
-                <Header />
-                <Titlebar title="Contact Us"/>
+                <Header isUserLoggedIn={this.state.isUserLoggedIn} logOut={this.logOut} />
+                <Titlebar title="Contact Us" />
 
                 <div class="container-fluid">
                     <div class="row">
@@ -102,12 +122,12 @@ class Contact extends React.Component {
                             <form onSubmit={(e) => { this.handleSubmit(e) }}>
                                 <h1>Contact Us</h1>
 
-                                {this.state.successMessage && 
-                                <div class="mb-3">
-                                    <div class="alert alert-success" role="alert">
-                                        Thanks for your query!! We will get back to you within 24 hours.
+                                {this.state.successMessage &&
+                                    <div class="mb-3">
+                                        <div class="alert alert-success" role="alert">
+                                            Thanks for your query!! We will get back to you within 24 hours.
                                     </div>
-                                </div>
+                                    </div>
                                 }
 
 

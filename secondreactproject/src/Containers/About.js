@@ -3,6 +3,7 @@ import Footer from "../Components/Footer"
 import Header from "../Components/Header"
 import Titlebar from "../Components/Titlebar";
 
+import { useEffect, useState } from "react";
 
 import slider1 from '../assets/images/slider1.jpg'
 import slider2 from '../assets/images/slider2.jpg'
@@ -16,9 +17,28 @@ import p4 from '../assets/images/p4.jpg'
 import '../assets/css/home.css'
 
 function About() {
+    const [isUserLoggedIn, setIsUserLoggedIn] = useState(false)
+    
+    useEffect( async ()=>{
+
+        let user = await sessionStorage.getItem('user')
+ 
+        if(user){
+            setIsUserLoggedIn(true)
+        }else{
+            setIsUserLoggedIn(false)
+        }
+     })
+
+     const logOut = (e) => {
+         e.preventDefault()
+         sessionStorage.removeItem('user')
+         setIsUserLoggedIn(false)
+     }
+
     return (
         <>
-            <Header />
+             <Header isUserLoggedIn={isUserLoggedIn} logOut={logOut} />
             <Titlebar title="About Us"/>
 
             <div class="container">

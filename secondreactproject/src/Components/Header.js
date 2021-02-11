@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom'
 
-function Header() {
+function Header(props) {
+
+
 
     return (
         <header>
@@ -17,10 +19,18 @@ function Header() {
                             <Link class="nav-link" to="/services">Services</Link>
                             <Link class="nav-link" to="/contact-us">Contact Us</Link>
                         </div>
-                        <div class="navbar-nav">
-                            <Link class="nav-link text-end" to="/login">Login</Link>
-                            <Link class="nav-link" to="/register">Register</Link>
-                        </div>
+
+                        {props.isUserLoggedIn ?
+                            <div class="navbar-nav">
+                                <Link class="nav-link" to="/my-account">My Account</Link>
+                                <a class="nav-link" href="#" onClick={(e) => { props.logOut(e) }}>Logout</a>
+                            </div>
+                            :
+                            <div class="navbar-nav">
+                                <Link class="nav-link" to="/login">Login</Link>
+                                <Link class="nav-link" to="/register">Register</Link>
+                            </div>
+                        }
                     </div>
                 </div>
             </nav>

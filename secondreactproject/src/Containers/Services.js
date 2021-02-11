@@ -14,11 +14,32 @@ import p3 from '../assets/images/p3.jfif'
 import p4 from '../assets/images/p4.jpg'
 
 import '../assets/css/home.css'
+import { useEffect, useState } from "react";
 
 function Services() {
+
+    const [isUserLoggedIn, setIsUserLoggedIn] = useState(false)
+    
+    useEffect( async ()=>{
+
+        let user = await sessionStorage.getItem('user')
+ 
+        if(user){
+            setIsUserLoggedIn(true)
+        }else{
+            setIsUserLoggedIn(false)
+        }
+     })
+
+     const logOut = (e) => {
+         e.preventDefault()
+         sessionStorage.removeItem('user')
+         setIsUserLoggedIn(false)
+     }
+
     return (
         <>
-            <Header />
+            <Header isUserLoggedIn={isUserLoggedIn} logOut={logOut} />
             <Titlebar title="Our Services" />
 
             <section>

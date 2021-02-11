@@ -2,6 +2,8 @@ import Footer from "../Components/Footer"
 import Header from "../Components/Header"
 import Titlebar from "../Components/Titlebar";
 
+import axios from 'axios'
+
 
 import React from 'react'
 import '../assets/css/home.css'
@@ -22,7 +24,8 @@ class Register extends React.Component {
                 email: "",
                 password: "",
                 password2: ""
-            }
+            },
+            registerSuccess: false
         }
     }
 
@@ -72,12 +75,36 @@ class Register extends React.Component {
 
     }
 
-    handleSubmit = (e) => {
+    handleSubmit = async (e) => {
         e.preventDefault()
 
         if (this.checkValidation()) {
 
+            const { name, phone, email, password } = this.state
+
+        let response = await axios.post( 
+                "https://5fffdd12cb21e10017af8153.mockapi.io/users",
+                {
+                    name, 
+                    phone,
+                    email,
+                    password
+                }
+            )
+                
+        if(response.data){
+            this.setState({
+                name: "",
+                email: "",
+                phone: "",
+                password:"",
+                password2: "",
+                registerSuccess: true
+            })
+        }    
+
         }
+
 
     }
 
@@ -89,10 +116,23 @@ class Register extends React.Component {
 
                 <div class="container-fluid">
                     <div class="row mt-5 mb-5">
-                        <div class="col-4 col-xs-0">
+                        
+                        <div class="col-md-4 col-0">
 
                         </div>
-                        <div class="col-4">
+                        <div class="col-md-4 col-12">
+
+
+                        {this.state.registerSuccess && 
+                                <div class="mb-3">
+                                    <div class="alert alert-success" role="alert">
+                                        Thanks for the Registration!!
+                                    </div>
+                                </div>
+                                }
+
+
+
                             <form onSubmit={(e) => { this.handleSubmit(e) }}>
                                 <h1>Register here</h1>
 
@@ -165,7 +205,7 @@ class Register extends React.Component {
                                 <button type="submit" class="btn btn-primary">Registration</button>
                             </form>
                         </div>
-                        <div class="col-4 col-xs-0">
+                        <div class="col-md-4 col-0">
 
                         </div>
                     </div>
