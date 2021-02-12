@@ -21,7 +21,8 @@ class Login extends React.Component {
             },
             loginError: false,
             errorMessage: "",
-            loginSuccess: false
+            loginSuccess: false,
+            submitLoader:  false
         }
 
     }
@@ -55,6 +56,8 @@ class Login extends React.Component {
 
     handleSubmit = async (e) => {
         e.preventDefault()
+
+        this.setState({submitLoader: true})
 
         if (this.checkValidation()) {
 
@@ -135,7 +138,7 @@ class Login extends React.Component {
                                         </div>
                                     }
                                 </div>
-                                <button type="submit" class="btn btn-primary">Login</button>
+                                <button type="submit" class="btn btn-primary" disabled={this.state.submitLoader}>{this.state.submitLoader ? "Submiting..." : "Login"}</button>
                             </form>
                         </div>
                         <div class="col-md-4 col-0">

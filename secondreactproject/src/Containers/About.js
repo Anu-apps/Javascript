@@ -16,7 +16,7 @@ import p4 from '../assets/images/p4.jpg'
 
 import '../assets/css/home.css'
 
-function About() {
+function About(props) {
     const [isUserLoggedIn, setIsUserLoggedIn] = useState(false)
     
     useEffect( async ()=>{
@@ -34,6 +34,7 @@ function About() {
          e.preventDefault()
          sessionStorage.removeItem('user')
          setIsUserLoggedIn(false)
+         props.history.push("/")
      }
 
     return (

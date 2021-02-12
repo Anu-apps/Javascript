@@ -6,6 +6,7 @@ import Services from '../Containers/Services'
 import Contact from '../Containers/Contact'
 import Login from '../Containers/Login'
 import Register from '../Containers/Register'
+import Products from '../Containers/Products'
 
 
 function Routes(){
@@ -13,6 +14,7 @@ function Routes(){
     return (
         <Router>
             <Switch>
+                <Route path="/products" component={Products}/>
                 <Route path="/register" component={Register}/>
                 <Route path="/login" component={Login}/>
                 <Route path="/contact-us" component={Contact}/>

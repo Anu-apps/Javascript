@@ -43,6 +43,7 @@ class Contact extends React.Component {
         e.preventDefault()
         sessionStorage.removeItem('user')
         this.setState({ isUserLoggedIn: false })
+        this.props.history.push("/")
     }
 
 

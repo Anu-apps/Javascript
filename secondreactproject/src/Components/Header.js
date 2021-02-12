@@ -18,6 +18,8 @@ function Header(props) {
                             <Link class="nav-link" to="/about-us">About Us</Link>
                             <Link class="nav-link" to="/services">Services</Link>
                             <Link class="nav-link" to="/contact-us">Contact Us</Link>
+                            {props.isUserLoggedIn &&
+                            <Link class="nav-link" to="/products">Products</Link>}
                         </div>
 
                         {props.isUserLoggedIn ?
