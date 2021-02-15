@@ -8,7 +8,7 @@ function Card(props) {
                 <h5>{props.price}</h5>
 
                 
-                <a href="#" class="btn btn-primary">Add to cart</a>
+                <a href="#" class="btn btn-primary" onClick={()=>{props.addToCart(props.id)}}>Add to cart</a>
             </div>
         </div>
     )
