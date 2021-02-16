@@ -53,7 +53,9 @@ function Products(props) {
         props.history.push("/")
     }
 
-    const addToCart = (id) => {
+    const addToCart = (e, id, type=false) => {
+
+        e.preventDefault()
 
         if (id) {
 
@@ -61,17 +63,33 @@ function Products(props) {
 
             let quantity = 1
 
+            localCart.forEach((item, index)=>{
+                if(item.id===id){
+                    if(type==='decrement'){
+                        quantity = item.quantity - 1
+                    }else{
+                        quantity = item.quantity + 1
+                    }
 
-            // let productExists = cartItems.filter(item=>item.id===id)
+                    localCart[index].quantity = quantity
+                  
+                    if(type==='remove' || quantity===0){
+                        localCart.splice(index, 1)
+                    }
+                }
+            })
 
-            // if(productExists.length>0){
-            //     quantity = +(productExists[0].quantity) + 1
-            // }
+            // it means product is not exist in the cartitems
+            if(quantity===1 && !type){
+                
+                let filterProduct = products.filter(item => item.id === id)
+                
+                localCart.push({...filterProduct[0], quantity})
 
-            let filterProduct = products.filter(item => item.id === id)
+            }
 
-            localCart.push({...filterProduct[0], quantity})
 
+            
             setCartItems(localCart)
 
 
@@ -110,7 +128,8 @@ function Products(props) {
                                                 description={item.description}
                                                 price={item.price}
                                                 image={item.image}
-                                                addToCart={addToCart} />
+                                                addToCart={addToCart}
+                                                cartItems={cartItems} />
 
 
                                         })
@@ -133,7 +152,7 @@ function Products(props) {
                                        return <li class="list-group-item d-flex justify-content-between align-items-center">
                                            <img src={item.image} style={{height:30, width:30}}/>
                                             {item.name} - {item.quantity}
-<span class="badge bg-primary rounded-pill">x</span>
+<button onClick={(e)=>{addToCart(e, item.id, 'remove')}} class="badge bg-primary rounded-pill">x</button>
 
                                         </li>
 
