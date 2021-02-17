@@ -12,6 +12,8 @@ import loaderImage from '../assets/images/loader.svg'
 
 import axios from 'axios'
 
+import { Link } from 'react-router-dom'
+
 function Products(props) {
 
     //hooks
@@ -20,6 +22,7 @@ function Products(props) {
     const [products, setProducts] = useState([])
     const [loader, setLoader] = useState(true)
     const [cartItems, setCartItems] = useState([])
+    const [totals, setTotals] = useState({ totalCount: 0, totalPrice: 0 })
 
     useEffect(async () => {
 
@@ -30,7 +33,21 @@ function Products(props) {
         } else {
             setIsUserLoggedIn(false)
         }
-    })
+
+
+        let sessionCartitems = await sessionStorage.getItem('cartItems')
+
+        if (sessionCartitems) {
+            setCartItems(JSON.parse(sessionCartitems))
+        }
+
+        let sessionTotalCartItems = await sessionStorage.getItem('totalCartItems')
+
+        if (sessionTotalCartItems) {
+            setTotals(JSON.parse(sessionTotalCartItems))
+        }
+
+    }, [])
 
 
     useEffect(async () => {
@@ -46,14 +63,16 @@ function Products(props) {
 
     }, [])
 
+
     const logOut = (e) => {
         e.preventDefault()
         sessionStorage.removeItem('user')
+        sessionStorage.removeItem('cartItems')
         setIsUserLoggedIn(false)
         props.history.push("/")
     }
 
-    const addToCart = (e, id, type=false) => {
+    const addToCart = (e, id, type = false) => {
 
         e.preventDefault()
 
@@ -63,35 +82,51 @@ function Products(props) {
 
             let quantity = 1
 
-            localCart.forEach((item, index)=>{
-                if(item.id===id){
-                    if(type==='decrement'){
+            localCart.forEach((item, index) => {
+                if (item.id === id) {
+                    if (type === 'decrement') {
                         quantity = item.quantity - 1
-                    }else{
+                    } else {
                         quantity = item.quantity + 1
                     }
 
                     localCart[index].quantity = quantity
-                  
-                    if(type==='remove' || quantity===0){
+
+                    if (type === 'remove' || quantity === 0) {
                         localCart.splice(index, 1)
                     }
                 }
             })
 
             // it means product is not exist in the cartitems
-            if(quantity===1 && !type){
-                
+            if (quantity === 1 && !type) {
+
                 let filterProduct = products.filter(item => item.id === id)
-                
-                localCart.push({...filterProduct[0], quantity})
+
+                localCart.push({ ...filterProduct[0], quantity })
 
             }
 
+            // to calculate totals
+            let totalCount = 0
+            let totalPrice = 0
 
-            
+            localCart.forEach(item => {
+                totalCount = +totalCount + +item.quantity
+                totalPrice = (+totalPrice + (+item.price * +item.quantity)).toFixed(2)
+            })
+
             setCartItems(localCart)
+            setTotals({
+                totalCount,
+                totalPrice
+            })
 
+            sessionStorage.setItem('cartItems', JSON.stringify(localCart))
+            sessionStorage.setItem('totalCartItems', JSON.stringify({
+                totalCount,
+                totalPrice
+            }))
 
         }
 
@@ -99,7 +134,7 @@ function Products(props) {
 
     return (
         <>
-            <Header isUserLoggedIn={isUserLoggedIn} logOut={logOut} />
+            <Header isUserLoggedIn={isUserLoggedIn} logOut={logOut} totals={totals} />
             <Titlebar title="My Products" />
 
             <section>
@@ -107,7 +142,7 @@ function Products(props) {
                     <div class="container-fluid">
 
                         <div class="row">
-                            <div className="col-md-9">
+                            <div className="col-md-8">
 
                                 <div class="row">
 
@@ -141,7 +176,7 @@ function Products(props) {
 
 
                             </div>
-                            <div className="col-md-3">
+                            <div className="col-md-4">
 
                                 <h3 className="mt-2 mb-3">Cart Items</h3>
 
@@ -149,15 +184,25 @@ function Products(props) {
 
                                     {cartItems && cartItems.map(item => {
 
-                                       return <li class="list-group-item d-flex justify-content-between align-items-center">
-                                           <img src={item.image} style={{height:30, width:30}}/>
-                                            {item.name} - {item.quantity}
-<button onClick={(e)=>{addToCart(e, item.id, 'remove')}} class="badge bg-primary rounded-pill">x</button>
+                                        return <li class="list-group-item d-flex justify-content-between align-items-start" style={{ fontSize: 12, alignItems: "flex-start" }}>
+                                            <img src={item.image} style={{ height: 30, width: 30 }} />
+                                            {item.name} - {item.price} x {item.quantity} = {item.quantity * item.price}
+                                            <button onClick={(e) => { addToCart(e, item.id, 'remove') }} class="badge bg-primary rounded-pill">x</button>
 
                                         </li>
 
                                     })}
 
+                                    {cartItems.length > 0 ?
+
+                                        <li class="list-group-item d-flex justify-content-between align-items-start">Sub Total: {totals.totalPrice}</li>
+                                        :
+                                        <li class="list-group-item d-flex justify-content-between align-items-start">Cart is Empty</li>
+                                    }
+
+                                    {cartItems.length > 0 &&
+                                        <Link to="/cart" class="btn btn-primary">Proceed to Checkout</Link>
+                                    }
 
                                 </ul>
 

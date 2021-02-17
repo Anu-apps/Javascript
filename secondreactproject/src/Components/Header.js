@@ -1,8 +1,7 @@
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 function Header(props) {
-
-
 
     return (
         <header>
@@ -19,12 +18,15 @@ function Header(props) {
                             <Link class="nav-link" to="/services">Services</Link>
                             <Link class="nav-link" to="/contact-us">Contact Us</Link>
                             {props.isUserLoggedIn &&
-                            <Link class="nav-link" to="/products">Products</Link>}
+                                <Link class="nav-link" to="/products">Products</Link>}
                         </div>
 
                         {props.isUserLoggedIn ?
                             <div class="navbar-nav">
                                 <Link class="nav-link" to="/my-account">My Account</Link>
+                                <Link to="/cart" class="nav-link">
+                                    Cart <span class="badge bg-secondary">{props?.totals?.totalCount || 0}</span>
+                                </Link>
                                 <a class="nav-link" href="#" onClick={(e) => { props.logOut(e) }}>Logout</a>
                             </div>
                             :
