@@ -1,0 +1,21 @@
+#homeSlider{
+    max-height: 400px;
+    overflow: hidden;
+}
+
+.footer-link a
+{
+    padding: 10px;
+}
+
+.title-bar
+{
+padding-top: 40px;
+padding-bottom: 40px;
+background-color: beige;
+}
+
+.title-bar h2
+{
+    text-align: center;
+}
