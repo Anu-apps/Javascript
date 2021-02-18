@@ -3,7 +3,7 @@ function Card(props) {
     let filterItem = props.cartItems.filter(item => item.id === props.id)
 
     return (
-        <div class="card col-3">
+        <div class="card col-4">
             <img src={props.image} class="card-img-top" alt="..." />
             <div class="card-body">
                 <h5>{props.name}</h5>
@@ -17,7 +17,7 @@ function Card(props) {
                             <button class="btn btn-outline-secondary" type="button" onClick={(e) => { props.addToCart(e, props.id, 'decrement') }}>-</button>
 
                             <input disabled={true} type="text" class="form-control" value={filterItem[0].quantity}></input>
-                            <button class="btn btn-outline-secondary" type="button"  onClick={(e) => { props.addToCart(e, props.id) }}>+</button>
+                            <button class="btn btn-outline-secondary" type="button" onClick={(e) => { props.addToCart(e, props.id) }}>+</button>
                         </div>
 
 
