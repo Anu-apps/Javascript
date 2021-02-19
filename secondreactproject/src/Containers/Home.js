@@ -15,6 +15,8 @@ import p4 from '../assets/images/p4.jpg'
 import '../assets/css/home.css'
 import { useEffect, useState } from "react";
 
+import { logOut } from '../helpers'
+
 function Home(props) {
 
     //hooks
@@ -32,16 +34,10 @@ function Home(props) {
         }
      })
 
-     const logOut = (e) => {
-         e.preventDefault()
-         sessionStorage.removeItem('user')
-         setIsUserLoggedIn(false)
-         props.history.push("/")
-     }
 
     return (
         <>
-            <Header isUserLoggedIn={isUserLoggedIn} logOut={logOut} />
+            <Header isUserLoggedIn={isUserLoggedIn}  logOut={()=>{ logOut(setIsUserLoggedIn, props.history) }}  />
             <Titlebar title="Welcome to Webz Academy" />
 
             <section>

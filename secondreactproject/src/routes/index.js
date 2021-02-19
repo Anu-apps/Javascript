@@ -10,6 +10,7 @@ import Products from '../Containers/Products'
 import Cart from '../Containers/Cart'
 import Checkout from '../Containers/Checkout'
 import ThankYou from '../Containers/Thankyou'
+import ProductDetails from '../Containers/ProductDetails'
 
 
 function Routes() {
@@ -21,6 +22,7 @@ function Routes() {
             <Route path="/thank-you" component={ThankYou} />
                 <Route path="/checkout" component={Checkout} />
                 <Route path="/cart" component={Cart} />
+                <Route path="/products/:id" component={ProductDetails} />
                 <Route path="/products" component={Products} />
                 <Route path="/register" component={Register} />
                 <Route path="/login" component={Login} />

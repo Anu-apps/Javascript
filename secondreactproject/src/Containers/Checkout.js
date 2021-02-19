@@ -8,6 +8,8 @@ import emailjs from 'emailjs-com'
 import { init } from 'emailjs-com';
 //import sgMail from '@sendgrid/mail'
 
+import {logOut } from '../helpers'
+
 import '../assets/css/home.css'
 init("user_s6TqMyVpTaN3pZIijEBi7");
 
@@ -47,13 +49,6 @@ class Checkout extends React.Component {
         } else {
             this.setState({ isUserLoggedIn: false })
         }
-    }
-
-    logOut = (e) => {
-        e.preventDefault()
-        sessionStorage.removeItem('user')
-        this.setState({ isUserLoggedIn: false })
-        this.props.history.push("/")
     }
 
     handleShipping = e => {
@@ -104,10 +99,14 @@ class Checkout extends React.Component {
 
     }
 
+    setIsUserLoggedIn = (state) => {
+        this.setState({isUserLoggedIn: state})
+    }
+
     render() {
         return (
             <>
-                <Header isUserLoggedIn={this.state.isUserLoggedIn} logOut={this.logOut} />
+                <Header isUserLoggedIn={this.state.isUserLoggedIn}  logOut={()=>{ logOut(this.setIsUserLoggedIn, this.props.history) }}  />
                 <Titlebar title="Checkout" />
 
                 <div class="container-fluid">

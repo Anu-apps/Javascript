@@ -1,12 +1,14 @@
+import {Link} from 'react-router-dom'
+
 function Card(props) {
 
     let filterItem = props.cartItems.filter(item => item.id === props.id)
 
     return (
         <div class="card col-4">
-            <img src={props.image} class="card-img-top" alt="..." />
+            <Link to={`/products/${props.id}`}><img src={props.image} class="card-img-top" alt="..." /></Link>
             <div class="card-body">
-                <h5>{props.name}</h5>
+                <h5> <Link to={`/products/${props.id}`}>{props.name}</Link></h5>
                 <h5>{props.description}</h5>
                 <h5>{props.price}</h5>
                 {

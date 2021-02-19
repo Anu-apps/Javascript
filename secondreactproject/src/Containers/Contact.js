@@ -9,6 +9,9 @@ import { init } from 'emailjs-com';
 //import sgMail from '@sendgrid/mail'
 
 import '../assets/css/home.css'
+
+import {logOut } from '../helpers'
+
 init("user_s6TqMyVpTaN3pZIijEBi7");
 
 //sgMail.setApiKey("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")
@@ -111,10 +114,14 @@ class Contact extends React.Component {
 
     }
 
+    setIsUserLoggedIn = (state) => {
+        this.setState({ isUserLoggedIn: state })
+    }
+
     render() {
         return (
             <>
-                <Header isUserLoggedIn={this.state.isUserLoggedIn} logOut={this.logOut} />
+                <Header isUserLoggedIn={this.state.isUserLoggedIn} logOut={() => { logOut(this.setIsUserLoggedIn, this.props.history) }} />
                 <Titlebar title="Contact Us" />
 
                 <div class="container-fluid">

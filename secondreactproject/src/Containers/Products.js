@@ -14,6 +14,8 @@ import axios from 'axios'
 
 import { Link } from 'react-router-dom'
 
+import { logOut } from '../helpers'
+
 function Products(props) {
 
     //hooks
@@ -63,14 +65,6 @@ function Products(props) {
 
     }, [])
 
-
-    const logOut = (e) => {
-        e.preventDefault()
-        sessionStorage.removeItem('user')
-        sessionStorage.removeItem('cartItems')
-        setIsUserLoggedIn(false)
-        props.history.push("/")
-    }
 
     const addToCart = (e, id, type = false) => {
 
@@ -134,7 +128,7 @@ function Products(props) {
 
     return (
         <>
-            <Header isUserLoggedIn={isUserLoggedIn} logOut={logOut} totals={totals} />
+            <Header isUserLoggedIn={isUserLoggedIn} logOut={()=>{ logOut(setIsUserLoggedIn, props.history) }} totals={totals} />
             <Titlebar title="My Products" />
 
             <section>

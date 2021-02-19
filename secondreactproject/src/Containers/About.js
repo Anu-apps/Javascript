@@ -16,6 +16,8 @@ import p4 from '../assets/images/p4.jpg'
 
 import '../assets/css/home.css'
 
+import { logOut } from '../helpers'
+
 function About(props) {
     const [isUserLoggedIn, setIsUserLoggedIn] = useState(false)
     
@@ -30,16 +32,10 @@ function About(props) {
         }
      })
 
-     const logOut = (e) => {
-         e.preventDefault()
-         sessionStorage.removeItem('user')
-         setIsUserLoggedIn(false)
-         props.history.push("/")
-     }
 
     return (
         <>
-             <Header isUserLoggedIn={isUserLoggedIn} logOut={logOut} />
+             <Header isUserLoggedIn={isUserLoggedIn}  logOut={()=>{ logOut(setIsUserLoggedIn, props.history) }}  />
             <Titlebar title="About Us"/>
 
             <div class="container">

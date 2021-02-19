@@ -16,31 +16,27 @@ import p4 from '../assets/images/p4.jpg'
 import '../assets/css/home.css'
 import { useEffect, useState } from "react";
 
+import { logOut } from '../helpers'
+
 function Services(props) {
 
     const [isUserLoggedIn, setIsUserLoggedIn] = useState(false)
-    
-    useEffect( async ()=>{
+
+    useEffect(async () => {
 
         let user = await sessionStorage.getItem('user')
- 
-        if(user){
+
+        if (user) {
             setIsUserLoggedIn(true)
-        }else{
+        } else {
             setIsUserLoggedIn(false)
         }
-     })
+    })
 
-     const logOut = (e) => {
-         e.preventDefault()
-         sessionStorage.removeItem('user')
-         setIsUserLoggedIn(false)
-         props.history.push("/")
-     }
 
     return (
         <>
-            <Header isUserLoggedIn={isUserLoggedIn} logOut={logOut} />
+            <Header isUserLoggedIn={isUserLoggedIn} logOut={() => { logOut(setIsUserLoggedIn, props.history) }} />
             <Titlebar title="Our Services" />
 
             <section>
