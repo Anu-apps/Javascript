@@ -1,12 +1,12 @@
 import logo from './logo.svg';
 import './App.css';
-import Dashboard from './containers/Dashboard'
+import Login from './containers/Login'
 
 function App() {
   return (
-    <Dashboard/>
+    <Login />
   )
- 
+
 }
 
 export default App;

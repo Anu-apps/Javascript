@@ -15,8 +15,16 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
+import DashboardIcon from '@material-ui/icons/Dashboard';
+import GroupIcon from '@material-ui/icons/Group';
+import StoreFrontIcon from '@material-ui/icons/Storefront';
+import MessageIcon from '@material-ui/icons/Message';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import nikeLogo from '../assets/images/nikeLogo.png';
+
+import Grid from '@material-ui/core/Grid';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
 
 const drawerWidth = 240;
 
@@ -71,7 +79,7 @@ const useStyles = makeStyles((theme) => ({
   toolbar: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
     padding: theme.spacing(0, 1),
     // necessary for content to be below app bar
     ...theme.mixins.toolbar,
@@ -80,6 +88,43 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
   },
+  cardContent: {
+    alignItems: 'center',
+    display: 'flex',
+    flexDirection: 'column'
+  },
+  cardTitle: {
+    fontSize: 30,
+    fontWeight: 'bold'
+  },
+  cardIcon: {
+    fontSize: 50,
+    color: '#f73378'
+  },
+  colorDashBoardIcon: {
+    fontSize: 50,
+    color: 'red'
+  },
+  colorUserIcon: {
+    fontSize: 50,
+    color: 'blue'
+  }
+  ,
+  colorProductsIcon: {
+    fontSize: 50,
+    color: 'aqua'
+  }
+  ,
+  colorQueriesIcon: {
+    fontSize: 50,
+    color: '#2196f3'
+  }
+  ,
+  colorLogoutIcon: {
+    fontSize: 50,
+    color: 'red'
+  }
+
 }));
 
 function Dashboard() {
@@ -134,55 +179,133 @@ function Dashboard() {
           }),
         }}
       >
-        <div className={classes.toolbar}>
+        <div className={classes.toolbar} >
+          <div>
+            <img src={nikeLogo} />
+          </div>
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
         </div>
         <Divider />
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
+
+          <ListItem button>
+            <ListItemIcon><DashboardIcon /></ListItemIcon>
+            <ListItemText primary="Dashboard" />
+          </ListItem>
+
+          <ListItem button>
+            <ListItemIcon><GroupIcon /></ListItemIcon>
+            <ListItemText primary="Users" />
+          </ListItem>
+
+          <ListItem button>
+            <ListItemIcon><StoreFrontIcon /></ListItemIcon>
+            <ListItemText primary="Products" />
+          </ListItem>
+
+          <ListItem button>
+            <ListItemIcon><MessageIcon /></ListItemIcon>
+            <ListItemText primary="Queries" />
+          </ListItem>
+
         </List>
         <Divider />
         <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
+
+          <ListItem button>
+            <ListItemIcon><ExitToAppIcon /></ListItemIcon>
+            <ListItemText primary="Logout" />
+          </ListItem>
+
         </List>
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <Typography paragraph>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-          ut labore et dolore magna aliqua. Rhoncus dolor purus non enim praesent elementum
-          facilisis leo vel. Risus at ultrices mi tempus imperdiet. Semper risus in hendrerit
-          gravida rutrum quisque non tellus. Convallis convallis tellus id interdum velit laoreet id
-          donec ultrices. Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-          adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra nibh cras.
-          Metus vulputate eu scelerisque felis imperdiet proin fermentum leo. Mauris commodo quis
-          imperdiet massa tincidunt. Cras tincidunt lobortis feugiat vivamus at augue. At augue eget
-          arcu dictum varius duis at consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem
-          donec massa sapien faucibus et molestie ac.
-        </Typography>
-        <Typography paragraph>
-          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper eget nulla
-          facilisi etiam dignissim diam. Pulvinar elementum integer enim neque volutpat ac
-          tincidunt. Ornare suspendisse sed nisi lacus sed viverra tellus. Purus sit amet volutpat
-          consequat mauris. Elementum eu facilisis sed odio morbi. Euismod lacinia at quis risus sed
-          vulputate odio. Morbi tincidunt ornare massa eget egestas purus viverra accumsan in. In
-          hendrerit gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem et
-          tortor. Habitant morbi tristique senectus et. Adipiscing elit duis tristique sollicitudin
-          nibh sit. Ornare aenean euismod elementum nisi quis eleifend. Commodo viverra maecenas
-          accumsan lacus vel facilisis. Nulla posuere sollicitudin aliquam ultrices sagittis orci a.
-        </Typography>
+
+        <Grid container className={classes.root} spacing={5}>
+
+          <Grid item xs={6}>
+
+            <Card>
+              <CardContent className={classes.cardContent}>
+
+                <DashboardIcon className={classes.cardIcon} className={classes.colorDashBoardIcon} />
+
+
+                <Typography className={classes.cardTitle}>
+                  Dashboard
+            </Typography>
+
+              </CardContent>
+            </Card>
+
+          </Grid>
+          <Grid item xs={6}>
+
+            <Card>
+              <CardContent className={classes.cardContent}>
+
+                <GroupIcon className={classes.cardIcon} className={classes.colorUserIcon} />
+
+                <Typography className={classes.cardTitle}>
+                  Users
+            </Typography>
+
+              </CardContent>
+            </Card>
+
+          </Grid>
+
+          <Grid item xs={6}>
+
+            <Card>
+              <CardContent className={classes.cardContent}>
+
+                <StoreFrontIcon className={classes.cardIcon} className={classes.colorProductsIcon} />
+
+                <Typography className={classes.cardTitle}>
+                  Products
+            </Typography>
+
+              </CardContent>
+            </Card>
+
+          </Grid>
+          <Grid item xs={6}>
+
+            <Card>
+              <CardContent className={classes.cardContent}>
+
+                <MessageIcon className={classes.cardIcon} className={classes.colorQueriesIcon} />
+
+                <Typography className={classes.cardTitle}>
+                  Queries
+</Typography>
+
+              </CardContent>
+            </Card>
+
+          </Grid>
+          <Grid item xs={6}>
+
+            <Card>
+              <CardContent className={classes.cardContent}>
+
+                <ExitToAppIcon className={classes.cardIcon} className={classes.colorLogoutIcon} />
+
+                <Typography className={classes.cardTitle}>
+                  Logout
+</Typography>
+
+              </CardContent>
+            </Card>
+
+          </Grid>
+
+        </Grid>
+
       </main>
     </div>
   );
