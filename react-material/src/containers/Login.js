@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function Login() {
+export default function Login(props) {
     const classes = useStyles();
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -68,7 +68,7 @@ export default function Login() {
             validate = false
         }
 
-        console.log(errorsLocal)
+        //console.log(errorsLocal)
 
         setErrors(errorsLocal)
 
@@ -97,7 +97,7 @@ export default function Login() {
 
                     sessionStorage.setItem('adminUser', JSON.stringify(response.data[0]))
 
-                    this.props.history.push('/')
+                    props.setIsUserLoggedIn(true)
 
                 } else {
                     setLoginError(true)

@@ -25,6 +25,10 @@ import nikeLogo from '../assets/images/nikeLogo.png';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import { logOut } from '../helpers'
+import Queries from './Queries';
+import Products from './Products';
+
 
 const drawerWidth = 240;
 
@@ -91,7 +95,8 @@ const useStyles = makeStyles((theme) => ({
   cardContent: {
     alignItems: 'center',
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
+    cursor: "pointer"
   },
   cardTitle: {
     fontSize: 30,
@@ -127,7 +132,7 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 
-function Dashboard() {
+function Dashboard(props) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -141,173 +146,87 @@ function Dashboard() {
   };
 
   return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <AppBar
-        position="fixed"
-        className={clsx(classes.appBar, {
-          [classes.appBarShift]: open,
-        })}
-      >
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            className={clsx(classes.menuButton, {
-              [classes.hide]: open,
-            })}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap>
-            Dashboard
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <Drawer
-        variant="permanent"
-        className={clsx(classes.drawer, {
-          [classes.drawerOpen]: open,
-          [classes.drawerClose]: !open,
-        })}
-        classes={{
-          paper: clsx({
-            [classes.drawerOpen]: open,
-            [classes.drawerClose]: !open,
-          }),
-        }}
-      >
-        <div className={classes.toolbar} >
-          <div>
-            <img src={nikeLogo} />
-          </div>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-          </IconButton>
-        </div>
-        <Divider />
-        <List>
+    <Grid container className={classes.root} spacing={5}>
 
-          <ListItem button>
-            <ListItemIcon><DashboardIcon /></ListItemIcon>
-            <ListItemText primary="Dashboard" />
-          </ListItem>
+      <Grid item xs={6}>
 
-          <ListItem button>
-            <ListItemIcon><GroupIcon /></ListItemIcon>
-            <ListItemText primary="Users" />
-          </ListItem>
+        <Card>
+          <CardContent className={classes.cardContent}>
 
-          <ListItem button>
-            <ListItemIcon><StoreFrontIcon /></ListItemIcon>
-            <ListItemText primary="Products" />
-          </ListItem>
-
-          <ListItem button>
-            <ListItemIcon><MessageIcon /></ListItemIcon>
-            <ListItemText primary="Queries" />
-          </ListItem>
-
-        </List>
-        <Divider />
-        <List>
-
-          <ListItem button>
-            <ListItemIcon><ExitToAppIcon /></ListItemIcon>
-            <ListItemText primary="Logout" />
-          </ListItem>
-
-        </List>
-      </Drawer>
-      <main className={classes.content}>
-        <div className={classes.toolbar} />
-
-        <Grid container className={classes.root} spacing={5}>
-
-          <Grid item xs={6}>
-
-            <Card>
-              <CardContent className={classes.cardContent}>
-
-                <DashboardIcon className={classes.cardIcon} className={classes.colorDashBoardIcon} />
+            <DashboardIcon className={classes.cardIcon} className={classes.colorDashBoardIcon} />
 
 
-                <Typography className={classes.cardTitle}>
-                  Dashboard
+            <Typography className={classes.cardTitle}>
+              Dashboard
             </Typography>
 
-              </CardContent>
-            </Card>
+          </CardContent>
+        </Card>
 
-          </Grid>
-          <Grid item xs={6}>
+      </Grid>
+      <Grid item xs={6}>
 
-            <Card>
-              <CardContent className={classes.cardContent}>
+        <Card onClick={() => { props.history.push('/users') }}>
+          <CardContent className={classes.cardContent}>
 
-                <GroupIcon className={classes.cardIcon} className={classes.colorUserIcon} />
+            <GroupIcon className={classes.cardIcon} className={classes.colorUserIcon} />
 
-                <Typography className={classes.cardTitle}>
-                  Users
+            <Typography className={classes.cardTitle}>
+              Users
             </Typography>
 
-              </CardContent>
-            </Card>
+          </CardContent>
+        </Card>
 
-          </Grid>
+      </Grid>
 
-          <Grid item xs={6}>
+      <Grid item xs={6}>
 
-            <Card>
-              <CardContent className={classes.cardContent}>
+        <Card onClick={() => { props.history.push('/products') }}>
+          <CardContent className={classes.cardContent}>
 
-                <StoreFrontIcon className={classes.cardIcon} className={classes.colorProductsIcon} />
+            <StoreFrontIcon className={classes.cardIcon} className={classes.colorProductsIcon} />
 
-                <Typography className={classes.cardTitle}>
-                  Products
+            <Typography className={classes.cardTitle}>
+              Products
             </Typography>
 
-              </CardContent>
-            </Card>
+          </CardContent>
+        </Card>
 
-          </Grid>
-          <Grid item xs={6}>
+      </Grid>
+      <Grid item xs={6}>
 
-            <Card>
-              <CardContent className={classes.cardContent}>
+        <Card onClick={() => { props.history.push('/queries') }}>
+          <CardContent className={classes.cardContent}>
 
-                <MessageIcon className={classes.cardIcon} className={classes.colorQueriesIcon} />
+            <MessageIcon className={classes.cardIcon} className={classes.colorQueriesIcon} />
 
-                <Typography className={classes.cardTitle}>
-                  Queries
+            <Typography className={classes.cardTitle}>
+              Queries
 </Typography>
 
-              </CardContent>
-            </Card>
+          </CardContent>
+        </Card>
 
-          </Grid>
-          <Grid item xs={6}>
+      </Grid>
+      <Grid item xs={6}>
 
-            <Card>
-              <CardContent className={classes.cardContent}>
+        <Card onClick={() => { logOut(props.setIsUserLoggedIn, props.history) }}>
+          <CardContent className={classes.cardContent}>
 
-                <ExitToAppIcon className={classes.cardIcon} className={classes.colorLogoutIcon} />
+            <ExitToAppIcon className={classes.cardIcon} className={classes.colorLogoutIcon} />
 
-                <Typography className={classes.cardTitle}>
-                  Logout
+            <Typography className={classes.cardTitle}>
+              Logout
 </Typography>
 
-              </CardContent>
-            </Card>
+          </CardContent>
+        </Card>
 
-          </Grid>
+      </Grid>
 
-        </Grid>
-
-      </main>
-    </div>
+    </Grid>
   );
 }
 
