@@ -1,24 +1,36 @@
 const express = require('express')
 const router = express.Router()
+const Users = require('../models/Users')
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
-router.get('/all', function (req, res) {
-    res.json([
-        {
-            id: 1,
-            name: "Remi",
-            phone: "32323232332"
-        },
-        {
-            id: 2,
-            name: "Remi",
-            phone: "32323232332"
-        },
-        {
-            id: 3,
-            name: "Remi",
-            phone: "32323232332"
-        }
-    ])
+// User Registration API
+
+router.post('/register', async function (req, res) {
+
+    const { name, phone, email, password } = req.body
+
+    if (name !== "" && phone !== "" && email !== "" && password !== "") {
+
+        let passwordHash = await bcrypt.hash(password, saltRounds)
+
+        const user = new Users({
+            name,
+            phone,
+            email,
+            password: passwordHash
+        })
+
+        user.save(function (err, success) {
+
+            res.status(200).json({ status: true, message: "User Registered Succcessfully!!!" })
+
+        })
+
+    } else {
+        res.status(500).json({ status: false, message: "Please fill the rquired fields" })
+    }
+
 })
 
 module.exports = router
