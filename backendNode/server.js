@@ -19,7 +19,11 @@ app.use(bodyParser.json())
 app.use('/api/users', users)
 app.use('/api/products', products)
 
-mongoose.connect('mongodb://localhost:27017/backendNode', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }, function () {
+mongoose.connect('mongodb://localhost:27017/backendNode', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true
+}, function () {
     console.log("MongoDB is running ")
 });
 

@@ -7,6 +7,10 @@ const userSchema = new Schema({
     email: { type: String, required: true },
     phone: { type: String, required: true },
     password: { type: String, required: true },
+    status: { type: Boolean, default: false },
+    role: { type: String, enum: ['customer', 'admin'], default: 'customer' },
+    accessToken: { type: String },
+    refreshToken: { type: String },
     date: { type: Date, default: Date.now }
 });
 
