@@ -9,11 +9,20 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 
 import Button from '@material-ui/core/Button'
-import axios from 'axios'
+import { LoginService } from '../services/users'
 
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
+    root: {
+        background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+        border: 0,
+        borderRadius: 3,
+        boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+        color: 'white',
+        height: 48,
+        padding: '0 30px',
+    },
     container: {
         backgroundImage: "url('/assets/images/bg.jpg')",
         height: "100%",
@@ -86,29 +95,33 @@ export default function Login(props) {
 
 
 
-            let response = await axios.get("https://5fffdd12cb21e10017af8153.mockapi.io/users?email=" + email)
+            // let response = await axios.get("https://5fffdd12cb21e10017af8153.mockapi.io/users?email=" + email)
 
-            if (response.data && response.data.length > 0) {
+            LoginService({
+                email,
+                password
+            }).then(response => {
 
-                let user = response.data[0]
+                if (response.data.success) {
+                    // match the useremail and password with the first array element
+                    if (response.data.user?.role === "admin") {
 
-                // match the useremail and password with the first array element
-                if (user.email === email && user.password === password && user.role === "admin") {
+                        sessionStorage.setItem('adminUser', JSON.stringify(response.data))
 
-                    sessionStorage.setItem('adminUser', JSON.stringify(response.data[0]))
+                        props.setIsUserLoggedIn(true)
 
-                    props.setIsUserLoggedIn(true)
-
+                    } else {
+                        setErrorMessage("Sorry, You don't have admin access.")
+                    }
                 } else {
-                    setLoginError(true)
-                    setErrorMessage("Sorry, invalid email")
+                    setErrorMessage(response.data.message)
                 }
-
-            } else {
-                setLoginError(true)
-                setErrorMessage("Sorry, invalid account")
-
-            }
+            })
+                .catch(err => {
+                    if (err) {
+                        setErrorMessage(err.response.data?.message || "There is something wrong.")
+                    }
+                })
 
         }
 
@@ -127,6 +140,7 @@ export default function Login(props) {
                         <form onSubmit={(e) => { handleSubmit(e) }}
                             noValidate autoComplete="off" className={classes.loginForm}>
 
+
                             <div className={classes.field}>
                                 <h1>Admin Login</h1>
                             </div>
@@ -140,6 +154,10 @@ export default function Login(props) {
                                     className={classes.TextField}
                                     onChange={(e) => { setEmail(e.target.value) }}
                                 />
+                                {errorMessage &&
+                                    <Alert severity="error">{errorMessage}</Alert>
+
+                                }
                                 {errors.email &&
                                     <Alert severity="error">{errors.email}</Alert>
 
@@ -165,7 +183,7 @@ export default function Login(props) {
                             <div className={classes.field}>
                                 <Button type="submit" variant="contained" color="primary">
                                     Login
-                            </Button>
+                                </Button>
                             </div>
 
                         </form>
