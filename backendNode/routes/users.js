@@ -11,7 +11,7 @@ function authentication(req, res, next) {
     let refreshToken = req?.headers?.token || null;
     if (authHeader == null || authHeader === "") { return res.status(401).json({ status: false, message: "Unauthorized Access" }); }
 
-    let token = JSON.parse(authHeader)
+    let token = authHeader
 
     jwt.verify(token, 'BACKEND_NODE', async (err, user) => {
         if (err) {
@@ -20,7 +20,7 @@ function authentication(req, res, next) {
 
                     if (refreshToken) {
 
-                        refreshToken = JSON.parse(refreshToken)
+                        refreshToken = (refreshToken)
 
                         // fetch refreshTOken from DB
                         const dbUser = await Users.findOne({ refreshToken })
@@ -149,7 +149,8 @@ router.post('/login', async function (req, res) {
                 email: user.email,
                 name: user.name,
                 phone: user.phone,
-                date: user.date
+                date: user.date,
+                role: user.role
             }
         })
 
@@ -168,7 +169,32 @@ router.post('/get-user', authentication, async function (req, res) {
 
         const user = await Users.findOne({ _id })
 
-        res.status(200).json({ status: true, user: { name: user.name, email: user.email, phone: user.phone, date: user.date } })
+        res.status(200).json({
+            status: true, user: {
+                name: user.name,
+                email: user.email,
+                phone: user.phone,
+                date: user.date
+            }
+        })
+
+    }
+})
+
+
+
+// Get All User
+// protected api
+router.get('/get-all-users', authentication, async function (req, res) {
+
+    const { _id } = res.user
+    if (_id) {
+
+        const users = await Users.find()
+
+        res.status(200).json({
+            status: true, users
+        })
 
     }
 })
