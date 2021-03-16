@@ -3,6 +3,9 @@ const mongoose = require('mongoose');
 const users = require('./routes/users')
 const products = require('./routes/products')
 const bodyParser = require('body-parser')
+const categories = require('./routes/categories')
+const projects = require('./routes/projects')
+const queries = require('./routes/queries')
 
 const app = express()
 const port = 5000
@@ -18,6 +21,9 @@ app.use(bodyParser.json())
 // users api
 app.use('/api/users', users)
 app.use('/api/products', products)
+app.use('/api/categories', categories)
+app.use('/api/projects', projects)
+app.use('/api/queries', queries)
 
 mongoose.connect('mongodb://localhost:27017/backendNode', {
     useNewUrlParser: true,
