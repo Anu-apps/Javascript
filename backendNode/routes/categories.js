@@ -3,7 +3,6 @@ const router = express.Router()
 const Categories = require('../models/Categories')
 
 router.post('/add', function (req, res) {
-
     const { name } = req.body
 
     if (name !== "") {

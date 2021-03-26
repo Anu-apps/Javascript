@@ -1,6 +1,8 @@
 const express = require('express')
 const router = express.Router()
 const Projects = require('../models/Projects')
+const Categories = require('../models/Categories')
+
 
 router.post('/add', function (req, res) {
 
@@ -30,6 +32,33 @@ router.post('/add', function (req, res) {
     } else {
         res.status(500).json({ status: false, message: "Please fill the required fields" })
     }
+
+})
+
+router.get('/all', async function (req, res) {
+
+    let categories = await Categories.find({})
+
+    let projects = await Projects.aggregate([
+        {
+            $lookup: {
+                from: "categories",
+                localField: "catId",
+                foreignField: "_id",
+                as: "category"
+            }
+        },
+    ])
+    console.log({
+        status: true,
+        projects,
+        categories
+    })
+    res.status(200).json({
+        status: true,
+        projects,
+        categories
+    })
 
 })
 

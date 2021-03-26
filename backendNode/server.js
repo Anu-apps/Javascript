@@ -6,6 +6,7 @@ const bodyParser = require('body-parser')
 const categories = require('./routes/categories')
 const projects = require('./routes/projects')
 const queries = require('./routes/queries')
+const portfolio = require('./routes/portfolio')
 
 const app = express()
 const port = 5000
@@ -24,6 +25,7 @@ app.use('/api/products', products)
 app.use('/api/categories', categories)
 app.use('/api/projects', projects)
 app.use('/api/queries', queries)
+app.use('/api/portfolio', portfolio)
 
 mongoose.connect('mongodb://localhost:27017/backendNode', {
     useNewUrlParser: true,
