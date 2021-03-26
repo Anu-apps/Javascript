@@ -19,7 +19,7 @@ function Routes() {
         <Router>
             <Switch>
                 
-            <Route path="/thank-you" component={ThankYou} />
+                <Route path="/thank-you" component={ThankYou} />
                 <Route path="/checkout" component={Checkout} />
                 <Route path="/cart" component={Cart} />
                 <Route path="/products/:id" component={ProductDetails} />

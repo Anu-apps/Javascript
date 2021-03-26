@@ -16,17 +16,21 @@ function Card(props) {
 
 
                         <div class="input-group mb-3">
-                            <button class="btn btn-outline-secondary" type="button" onClick={(e) => { props.addToCart(e, props.id, 'decrement') }}>-</button>
+                            <button class="btn btn-outline-secondary" type="button" 
+                            onClick={(e) => { props.addToCart(e, props.id, 'decrement') }}>-</button>
 
-                            <input disabled={true} type="text" class="form-control" value={filterItem[0].quantity}></input>
-                            <button class="btn btn-outline-secondary" type="button" onClick={(e) => { props.addToCart(e, props.id) }}>+</button>
+                            <input disabled={true} type="text" class="form-control" 
+                            value={filterItem[0].quantity}></input>
+                            <button class="btn btn-outline-secondary" type="button" 
+                            onClick={(e) => { props.addToCart(e, props.id) }}>+</button>
                         </div>
 
 
                         :
 
 
-                        <a href="#" class="btn btn-primary" onClick={(e) => { props.addToCart(e, props.id) }}>Add to cart</a>
+                        <a href="#" class="btn btn-primary" onClick={(e) => 
+                            { props.addToCart(e, props.id) }}>Add to cart</a>
 
 
                 }

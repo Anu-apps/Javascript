@@ -58,12 +58,8 @@ function About(props) {
 
             <Footer />
         </>
-
-
-
     )
-
-
 }
+
 
 export default About
